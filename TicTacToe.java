@@ -1,74 +1,46 @@
 /**
  * TicTacToe
- * UC9 checks whether a player has won the game
- * by verifying rows, columns, and diagonals.
+ * UC10 detects whether the game ends in a draw.
  */
 public class TicTacToe {
 
     static char[][] board = {
-        {'X', 'X', 'X'},
-        {'O', '-', 'O'},
-        {'-', '-', '-'}
+        {'X', 'O', 'X'},
+        {'X', 'O', 'O'},
+        {'O', 'X', 'X'}
     };
 
     public static void main(String[] args) {
 
-        char player = 'X';
+        if (isDraw()) {
 
-        if (checkWin(player)) {
-
-            System.out.println("Player " + player + " Wins!");
+            System.out.println("Game Draw!");
         } else {
 
-            System.out.println("No Winner Yet");
+            System.out.println("Moves Still Available");
         }
     }
 
     /**
-     * Checks whether the given player has won.
-     * Returns true if any row, column,
-     * or diagonal contains the same symbol.
+     * Checks whether the board is full
+     * and no empty cells remain.
      */
-    static boolean checkWin(char player) {
+    static boolean isDraw() {
 
-        // Check rows
+        // Traverse all board cells
         for (int i = 0; i < 3; i++) {
 
-            if (board[i][0] == player &&
-                board[i][1] == player &&
-                board[i][2] == player) {
+            for (int j = 0; j < 3; j++) {
 
-                return true;
+                // If empty cell exists, game is not draw
+                if (board[i][j] == '-') {
+
+                    return false;
+                }
             }
         }
 
-        // Check columns
-        for (int i = 0; i < 3; i++) {
-
-            if (board[0][i] == player &&
-                board[1][i] == player &&
-                board[2][i] == player) {
-
-                return true;
-            }
-        }
-
-        // Check main diagonal
-        if (board[0][0] == player &&
-            board[1][1] == player &&
-            board[2][2] == player) {
-
-            return true;
-        }
-
-        // Check opposite diagonal
-        if (board[0][2] == player &&
-            board[1][1] == player &&
-            board[2][0] == player) {
-
-            return true;
-        }
-
-        return false;
+        // No empty cells found
+        return true;
     }
 }
